@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@android:drawable/ic_menu_compass"
+            android:title="首页" />
+        
+        <item
+            android:id="@+id/nav_book_manage"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="图书管理" />
+        
+        <item
+            android:id="@+id/nav_book_borrow"
+            android:icon="@android:drawable/ic_menu_share"
+            android:title="图书借阅" />
+        
+        <item
+            android:id="@+id/nav_reader_manage"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="读者管理" />
+        
+        <item
+            android:id="@+id/nav_book_search"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="图书查询" />
+    </group>
+    
+    <item android:title="系统">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="设置" />
+            
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                android:title="退出登录" />
+        </menu>
+    </item>
+</menu> 
