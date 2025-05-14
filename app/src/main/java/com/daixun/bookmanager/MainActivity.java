@@ -15,14 +15,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.daixun.bookmanager.fragment.BookBorrowFragment;
 import com.daixun.bookmanager.fragment.BookManageFragment;
 import com.daixun.bookmanager.fragment.BookSearchFragment;
 import com.daixun.bookmanager.fragment.HomeFragment;
+import com.daixun.bookmanager.fragment.ProfileFragment;
 import com.daixun.bookmanager.fragment.ReaderManageFragment;
 import com.daixun.bookmanager.fragment.SettingsFragment;
 import com.daixun.bookmanager.utils.SessionManager;
 import com.google.android.material.navigation.NavigationView;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -78,9 +82,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = navigationView.getHeaderView(0);
         TextView tvUsername = headerView.findViewById(R.id.tvNavUsername);
         TextView tvUserRole = headerView.findViewById(R.id.tvNavUserRole);
+        CircleImageView ivUserAvatar = headerView.findViewById(R.id.ivUserAvatar);
         
         tvUsername.setText(sessionManager.getUsername());
         tvUserRole.setText(sessionManager.isAdmin() ? "管理员" : "学生用户");
+        
+        // 加载头像
+        String avatarUrl = sessionManager.getAvatarUrl();
+        if (avatarUrl != null && !avatarUrl.isEmpty()) {
+            Glide.with(this)
+                .load(avatarUrl)
+                .placeholder(R.drawable.ic_person)
+                .error(R.drawable.ic_person)
+                .into(ivUserAvatar);
+        }
+        
+        // 设置头像点击事件
+        ivUserAvatar.setOnClickListener(v -> {
+            // 关闭抽屉
+            drawer.closeDrawer(GravityCompat.START);
+            
+            // 加载个人资料页面
+            getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new ProfileFragment())
+                .addToBackStack(null)
+                .commit();
+        });
     }
     
     private void updateMenuVisibility() {
@@ -116,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             selectedFragment = new BookSearchFragment();
         } else if (itemId == R.id.nav_settings) {
             selectedFragment = new SettingsFragment();
+        } else if (itemId == R.id.nav_profile) {
+            selectedFragment = new ProfileFragment();
         } else if (itemId == R.id.nav_logout) {
             // 退出登录
             sessionManager.logoutUser();
@@ -131,6 +160,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 每次恢复活动时更新导航头部
+        updateNavHeader();
     }
 
     @Override

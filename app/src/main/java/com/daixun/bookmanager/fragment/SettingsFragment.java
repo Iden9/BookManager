@@ -53,7 +53,7 @@ public class SettingsFragment extends Fragment {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_change_password, null);
         builder.setView(dialogView);
         
-        final EditText etOldPassword = dialogView.findViewById(R.id.etOldPassword);
+        final EditText etOldPassword = dialogView.findViewById(R.id.etCurrentPassword);
         final EditText etNewPassword = dialogView.findViewById(R.id.etNewPassword);
         final EditText etConfirmPassword = dialogView.findViewById(R.id.etConfirmPassword);
         

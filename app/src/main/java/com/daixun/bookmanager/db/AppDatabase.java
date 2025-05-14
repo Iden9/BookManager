@@ -21,7 +21,7 @@ import com.daixun.bookmanager.model.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Book.class, Borrow.class, Reader.class, User.class}, version = 2, exportSchema = false)
+@Database(entities = {Book.class, Borrow.class, Reader.class, User.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract BookDao bookDao();
@@ -41,6 +41,16 @@ public abstract class AppDatabase extends RoomDatabase {
             database.execSQL("ALTER TABLE books ADD COLUMN coverUrl TEXT DEFAULT ''");
         }
     };
+    
+    // 定义从版本2到版本3的迁移，添加User表的avatarUrl、email和phone字段
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE users ADD COLUMN avatarUrl TEXT DEFAULT ''");
+            database.execSQL("ALTER TABLE users ADD COLUMN email TEXT DEFAULT ''");
+            database.execSQL("ALTER TABLE users ADD COLUMN phone TEXT DEFAULT ''");
+        }
+    };
 
     public static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
@@ -49,7 +59,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "book_manager_database")
                             .addCallback(sRoomDatabaseCallback)
-                            .addMigrations(MIGRATION_1_2)
+                            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .build();
                 }
             }

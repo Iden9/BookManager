@@ -40,6 +40,10 @@ public class UserRepository {
         executorService.execute(() -> userDao.delete(user));
     }
 
+    public CompletableFuture<User> getUserById(final int id) {
+        return CompletableFuture.supplyAsync(() -> userDao.getUserById(id), executorService);
+    }
+
     public CompletableFuture<User> getUserByUsername(final String username) {
         return CompletableFuture.supplyAsync(() -> userDao.getUserByUsername(username), executorService);
     }

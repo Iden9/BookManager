@@ -11,6 +11,9 @@ public class SessionManager {
     private static final String KEY_USER_ID = "userId";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_IS_ADMIN = "isAdmin";
+    private static final String KEY_AVATAR_URL = "avatarUrl";
+    private static final String KEY_EMAIL = "email";
+    private static final String KEY_PHONE = "phone";
     
     private final SharedPreferences pref;
     private final SharedPreferences.Editor editor;
@@ -35,6 +38,9 @@ public class SessionManager {
         editor.putInt(KEY_USER_ID, user.getId());
         editor.putString(KEY_USERNAME, user.getUsername());
         editor.putBoolean(KEY_IS_ADMIN, user.isAdmin());
+        editor.putString(KEY_AVATAR_URL, user.getAvatarUrl());
+        editor.putString(KEY_EMAIL, user.getEmail());
+        editor.putString(KEY_PHONE, user.getPhone());
         editor.apply();
     }
     
@@ -57,5 +63,39 @@ public class SessionManager {
     
     public boolean isAdmin() {
         return pref.getBoolean(KEY_IS_ADMIN, false);
+    }
+    
+    public String getAvatarUrl() {
+        return pref.getString(KEY_AVATAR_URL, "");
+    }
+    
+    public String getEmail() {
+        return pref.getString(KEY_EMAIL, "");
+    }
+    
+    public String getPhone() {
+        return pref.getString(KEY_PHONE, "");
+    }
+    
+    public void updateUserAvatar(String avatarUrl) {
+        editor.putString(KEY_AVATAR_URL, avatarUrl);
+        editor.apply();
+    }
+    
+    public void updateUserEmail(String email) {
+        editor.putString(KEY_EMAIL, email);
+        editor.apply();
+    }
+    
+    public void updateUserPhone(String phone) {
+        editor.putString(KEY_PHONE, phone);
+        editor.apply();
+    }
+    
+    public void updateUserProfile(String avatarUrl, String email, String phone) {
+        editor.putString(KEY_AVATAR_URL, avatarUrl);
+        editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_PHONE, phone);
+        editor.apply();
     }
 }

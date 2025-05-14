@@ -18,7 +18,7 @@
         
         <item
             android:id="@+id/nav_reader_manage"
-            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:icon="@android:drawable/ic_menu_myplaces"
             android:title="读者管理" />
         
         <item
@@ -27,13 +27,16 @@
             android:title="图书查询" />
     </group>
     
-    <item android:title="系统">
+    <item android:title="个人">
         <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_person"
+                android:title="个人资料" />
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@android:drawable/ic_menu_manage"
                 android:title="设置" />
-            
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@android:drawable/ic_menu_close_clear_cancel"

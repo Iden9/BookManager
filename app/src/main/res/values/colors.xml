@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- 冷色调主题色 -->
+    <color name="light_blue_primary">#4FC3F7</color>
+    <color name="light_blue_primary_variant">#81D4FA</color>
+    <color name="light_blue_secondary">#29B6F6</color>
+    <color name="light_blue_background">#E1F5FE</color>
+    <color name="light_blue_surface">#F5FCFF</color>
+    <color name="light_blue_on_primary">#FFFFFF</color>
+    <color name="light_blue_on_secondary">#FFFFFF</color>
 </resources>

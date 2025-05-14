@@ -39,11 +39,15 @@ public class UserViewModel extends AndroidViewModel {
         repository.delete(user);
     }
     
-    public CompletableFuture<User> getUserByUsername(final String username) {
+    public CompletableFuture<User> getUserById(int id) {
+        return repository.getUserById(id);
+    }
+    
+    public CompletableFuture<User> getUserByUsername(String username) {
         return repository.getUserByUsername(username);
     }
     
-    public CompletableFuture<User> login(final String username, final String password) {
+    public CompletableFuture<User> login(String username, String password) {
         return repository.login(username, password);
     }
     
